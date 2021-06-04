@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-let date = new Date();
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -11,6 +11,7 @@ class App extends React.Component {
     };
   }
   timeUpdate() {
+    let date = new Date();
     console.log("called");
     this.setState({ time: date.getSeconds() });
   }
