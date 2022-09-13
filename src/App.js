@@ -1,5 +1,5 @@
 import ShowTime from "./Components/Time/ShowTime";
-import Time from "./Components/Time/TimeInput";
+import TimeInput from "./Components/Time/TimeInput";
 import "./App.css";
 
 function App() {
