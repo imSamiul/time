@@ -1,23 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import ShowTime from "./Components/Time/ShowTime";
+import Time from "./Components/Time/TimeInput";
+import "./App.css";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <div className="ui grid content">
+        <div className="ui row">
+          <div class="column">
+            <ShowTime></ShowTime>
+          </div>
+        </div>
+        <div className="ui row">
+          <div class="column">
+            <Time></Time>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
