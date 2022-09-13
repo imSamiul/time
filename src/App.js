@@ -13,7 +13,7 @@ function App() {
         </div>
         <div className="ui row">
           <div class="column">
-            <Time></Time>
+            <TimeInput></TimeInput>
           </div>
         </div>
       </div>
