@@ -2,7 +2,7 @@ import { useRef } from "react";
 import Input from "../UI/Input";
 import "./Time.css";
 
-const TimeInput = () => {
+const TimeInput = (props) => {
   const givenHours = useRef();
   const givenMinitue = useRef();
   const givenSeconds = useRef();
@@ -12,6 +12,7 @@ const TimeInput = () => {
     const enteredHours = givenHours.current.value;
     const enteredMinitue = givenMinitue.current.value;
     const enteredSeconds = givenSeconds.current.value;
+    props.onHandleInputTime(enteredHours, enteredMinitue, enteredSeconds);
   };
   return (
     <div className="ui grid middle aligned time">
