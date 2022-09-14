@@ -1,4 +1,4 @@
-import ShowTime from "./Components/Time/ShowTime";
+import CalculateTime from "./Components/Time/CalculateTime";
 import TimeInput from "./Components/Time/TimeInput";
 import "./App.css";
 import { useState } from "react";
@@ -22,7 +22,7 @@ function App() {
       <div className="ui grid content">
         <div className="ui row">
           <div class="column">
-            <ShowTime givenTime={givenTime}></ShowTime>
+            <CalculateTime givenTime={givenTime}></CalculateTime>
           </div>
         </div>
         <div className="ui row">
