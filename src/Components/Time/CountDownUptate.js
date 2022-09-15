@@ -3,9 +3,7 @@ import CircularProgressBar from "../UI/CircularProgressBar";
 const CountDownUpdate = (props) => {
   const timeLeftInMs = props.timeLeftInMs;
   const countDownDate = new Date(timeLeftInMs).getTime();
-  const [initLeftTime, setLeftTime] = useState(
-    countDownDate - new Date().getTime()
-  );
+  const [initLeftTime, setLeftTime] = useState(countDownDate);
 
   useEffect(() => {
     const interval = setInterval(() => {
