@@ -7,8 +7,8 @@ const CalculateTime = (props) => {
   const remaining = afterSomeTime - new Date().getTime();
   const [countDown, setCountDown] = useState(remaining);
   useEffect(() => {
-    setCountDown(() => remaining);
-  }, [timeAfterGivenTime, remaining]);
+    setCountDown(remaining);
+  }, [timeAfterGivenTime]);
 
   const seconds = Math.floor((countDown / 1000) % 60);
   const minutes = Math.floor((countDown / (1000 * 60)) % 60);

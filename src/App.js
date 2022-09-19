@@ -21,12 +21,12 @@ function App() {
     <div className="app">
       <div className="ui grid content">
         <div className="ui row">
-          <div class="column">
+          <div className="column">
             <ShowTime givenTime={givenTime}></ShowTime>
           </div>
         </div>
         <div className="ui row">
-          <div class="column">
+          <div className="column">
             <TimeInput onHandleInputTime={handleInputTime}></TimeInput>
           </div>
         </div>
