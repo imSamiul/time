@@ -1,9 +1,15 @@
 import { useEffect, useState } from "react";
 import CircularProgressBar from "../UI/CircularProgressBar";
 
-const CalculateTime = ({ timeAfterGivenTime }) => {
-  const afterSomeTime = new Date(timeAfterGivenTime);
-  const [countDown, setCountDown] = useState(afterSomeTime);
+const CalculateTime = (props) => {
+  const timeAfterGivenTime = props.timeAfterGivenTime;
+  const afterSomeTime = new Date(timeAfterGivenTime).getTime();
+  const remaining = afterSomeTime - new Date().getTime();
+  const [countDown, setCountDown] = useState(remaining);
+  useEffect(() => {
+    setCountDown(remaining);
+  }, [timeAfterGivenTime]);
+
   const seconds = Math.floor((countDown / 1000) % 60);
   const minutes = Math.floor((countDown / (1000 * 60)) % 60);
   const hours = Math.floor((countDown / (1000 * 60 * 60)) % 24);
@@ -12,24 +18,27 @@ const CalculateTime = ({ timeAfterGivenTime }) => {
     minutes: minutes,
     seconds: seconds,
   };
-  console.log(countDown, initialTime);
   const [time, setTime] = useState(initialTime);
+  const [percentage, setPercentage] = useState(100);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCountDown(afterSomeTime - new Date().getTime());
-    }, 1000);
+    if (countDown >= 0) {
+      console.log("countDown", countDown);
+      const interval = setInterval(() => {
+        setCountDown(countDown - 1000);
+      }, 1000);
 
-    const remainingTime = {
-      hours: Math.floor((countDown / (1000 * 60 * 60)) % 24),
-      minutes: Math.floor((countDown / (1000 * 60)) % 60),
-      seconds: Math.floor((countDown / 1000) % 60),
-    };
-    setTime((prevTime) => ({
-      ...prevTime,
-      ...remainingTime,
-    }));
-    return () => clearInterval(interval);
+      const remainingTime = {
+        hours: Math.floor((countDown / (1000 * 60 * 60)) % 24),
+        minutes: Math.floor((countDown / (1000 * 60)) % 60),
+        seconds: Math.floor((countDown / 1000) % 60),
+      };
+      setTime((prevTime) => ({
+        ...prevTime,
+        ...remainingTime,
+      }));
+      return () => clearInterval(interval);
+    }
   }, [countDown]);
 
   return (
@@ -41,4 +50,5 @@ const CalculateTime = ({ timeAfterGivenTime }) => {
     />
   );
 };
+
 export default CalculateTime;
