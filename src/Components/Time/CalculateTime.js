@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
 import CircularProgressBar from "../UI/CircularProgressBar";
 
-const CalculateTime = ({ remaining, percent }) => {
+const CalculateTime = ({ percent, remaining }) => {
   // const timeAfterGivenTime = props.timeAfterGivenTime;
   // const afterSomeTime = new Date(timeAfterGivenTime).getTime();
   // const remaining = afterSomeTime - new Date().getTime();
   // const percent = (remaining / remaining) * 100;
   const [countDown, setCountDown] = useState(remaining);
-  console.log("countDown", countDown);
+
   const [percentage, setPercentage] = useState(percent);
+  console.log("percentage", percentage);
   useEffect(() => {
     setCountDown(() => remaining);
   }, [remaining]);
@@ -24,9 +25,10 @@ const CalculateTime = ({ remaining, percent }) => {
   const [time, setTime] = useState(initialTime);
 
   useEffect(() => {
+    // console.log("Last CountDown", countDown);
     if (countDown >= 0) {
-      // console.log("countDown", countDown, "remaining", remaining);
-      setPercentage((countDown / remaining) * 100);
+      console.log("countDown", countDown, "remaining", remaining);
+      setPercentage(Math.floor((countDown / remaining) * 100));
       const interval = setInterval(() => {
         setCountDown(countDown - 1000);
       }, 1000);
@@ -43,6 +45,9 @@ const CalculateTime = ({ remaining, percent }) => {
 
       return () => clearInterval(interval);
     }
+    // else {
+    //   setPercentage(0);
+    // }
   }, [countDown, remaining]);
 
   return (
