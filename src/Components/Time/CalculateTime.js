@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
 import CircularProgressBar from "../UI/CircularProgressBar";
 
-const CalculateTime = (props) => {
-  const timeAfterGivenTime = props.timeAfterGivenTime;
-  const afterSomeTime = new Date(timeAfterGivenTime).getTime();
-  const remaining = afterSomeTime - new Date().getTime();
+const CalculateTime = ({ remaining, percent }) => {
+  // const timeAfterGivenTime = props.timeAfterGivenTime;
+  // const afterSomeTime = new Date(timeAfterGivenTime).getTime();
+  // const remaining = afterSomeTime - new Date().getTime();
+  // const percent = (remaining / remaining) * 100;
   const [countDown, setCountDown] = useState(remaining);
+  console.log("countDown", countDown);
+  const [percentage, setPercentage] = useState(percent);
   useEffect(() => {
     setCountDown(() => remaining);
-  }, [timeAfterGivenTime, remaining]);
+  }, [remaining]);
 
   const seconds = Math.floor((countDown / 1000) % 60);
   const minutes = Math.floor((countDown / (1000 * 60)) % 60);
@@ -19,11 +22,11 @@ const CalculateTime = (props) => {
     seconds: seconds,
   };
   const [time, setTime] = useState(initialTime);
-  const [percentage, setPercentage] = useState(100);
 
   useEffect(() => {
     if (countDown >= 0) {
-      console.log("countDown", countDown);
+      // console.log("countDown", countDown, "remaining", remaining);
+      setPercentage((countDown / remaining) * 100);
       const interval = setInterval(() => {
         setCountDown(countDown - 1000);
       }, 1000);
@@ -37,6 +40,7 @@ const CalculateTime = (props) => {
         ...prevTime,
         ...remainingTime,
       }));
+
       return () => clearInterval(interval);
     }
   }, [countDown]);
@@ -45,7 +49,7 @@ const CalculateTime = (props) => {
     <CircularProgressBar
       strokeWidth="25"
       sqSize="300"
-      percentage={80}
+      percentage={percentage}
       time={time}
     />
   );
