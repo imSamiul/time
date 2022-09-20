@@ -8,15 +8,15 @@ const ShowTime = (props) => {
   const secondsInMs = props.givenTime.seconds * 1000;
   const nowInMs = new Date().getTime();
   const givenTimeInMs = hoursInMs + minitueInMs + secondsInMs;
-  const timeAfterGivenTime = nowInMs + givenTimeInMs;
+  const timeAfterGivenTime = nowInMs + givenTimeInMs + 500;
 
   const afterSomeTime = new Date(timeAfterGivenTime).getTime();
   useEffect(() => {
     setRemaining(afterSomeTime - new Date().getTime());
   }, [afterSomeTime, props.givenTime]);
 
-  console.log(remaining);
   const percent = (remaining / remaining) * 100;
+
   return (
     <div>
       <CalculateTime remaining={remaining} percent={percent}></CalculateTime>

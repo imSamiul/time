@@ -43,7 +43,7 @@ const CalculateTime = ({ remaining, percent }) => {
 
       return () => clearInterval(interval);
     }
-  }, [countDown]);
+  }, [countDown, remaining]);
 
   return (
     <CircularProgressBar
