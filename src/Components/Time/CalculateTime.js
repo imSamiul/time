@@ -7,11 +7,12 @@ const CalculateTime = ({ percent, remaining }) => {
   // const remaining = afterSomeTime - new Date().getTime();
   // const percent = (remaining / remaining) * 100;
   const [countDown, setCountDown] = useState(remaining);
-
+  const [timeUp, setTimeUp] = useState(false);
   const [percentage, setPercentage] = useState(percent);
-  console.log("percentage", percentage);
+  // console.log("timeUp", timeUp);
   useEffect(() => {
     setCountDown(() => remaining);
+    setTimeUp(() => false);
   }, [remaining]);
 
   const seconds = Math.floor((countDown / 1000) % 60);
@@ -25,9 +26,7 @@ const CalculateTime = ({ percent, remaining }) => {
   const [time, setTime] = useState(initialTime);
 
   useEffect(() => {
-    // console.log("Last CountDown", countDown);
     if (countDown >= 0) {
-      console.log("countDown", countDown, "remaining", remaining);
       setPercentage(Math.floor((countDown / remaining) * 100));
       const interval = setInterval(() => {
         setCountDown(countDown - 1000);
@@ -44,19 +43,24 @@ const CalculateTime = ({ percent, remaining }) => {
       }));
 
       return () => clearInterval(interval);
+    } else {
+      setTimeUp(true);
     }
-    // else {
-    //   setPercentage(0);
-    // }
-  }, [countDown, remaining]);
+  }, [countDown]);
 
   return (
-    <CircularProgressBar
-      strokeWidth="25"
-      sqSize="300"
-      percentage={percentage}
-      time={time}
-    />
+    <div>
+      {timeUp && countDown <= 0 ? (
+        <div>Time Up</div>
+      ) : (
+        <CircularProgressBar
+          strokeWidth="25"
+          sqSize="300"
+          percentage={percentage}
+          time={time}
+        />
+      )}
+    </div>
   );
 };
 
