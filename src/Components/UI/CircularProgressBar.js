@@ -1,4 +1,4 @@
-import "./ProgressBar.css";
+import "./CircleProgressBar.css";
 const CircularProgressBar = (props) => {
   // Size of the enclosing square
   const sqSize = props.sqSize;
@@ -40,7 +40,7 @@ const CircularProgressBar = (props) => {
         dy=".3em"
         textAnchor="middle"
       >
-        {`${props.percentage}%`}
+        {`${props.time.hours}:${props.time.minutes}:${props.time.seconds}`}
       </text>
     </svg>
   );

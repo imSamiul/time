@@ -1,7 +1,7 @@
-import CalculateTime from "./Components/Time/CalculateTime";
 import TimeInput from "./Components/Time/TimeInput";
 import "./App.css";
 import { useState } from "react";
+import ShowTime from "./Components/Time/ShowTime";
 
 function App() {
   const [givenTime, setGivenTime] = useState({
@@ -21,12 +21,12 @@ function App() {
     <div className="app">
       <div className="ui grid content">
         <div className="ui row">
-          <div class="column">
-            <CalculateTime givenTime={givenTime}></CalculateTime>
+          <div className="column">
+            <ShowTime givenTime={givenTime}></ShowTime>
           </div>
         </div>
         <div className="ui row">
-          <div class="column">
+          <div className="column">
             <TimeInput onHandleInputTime={handleInputTime}></TimeInput>
           </div>
         </div>
