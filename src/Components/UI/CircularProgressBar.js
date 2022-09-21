@@ -8,7 +8,9 @@ const CircularProgressBar = (props) => {
   const viewBox = `0 0 ${sqSize} ${sqSize}`;
   // Arc length at 100% coverage is the circle circumference
   const dashArray = radius * Math.PI * 2;
+
   // Scale 100% coverage overlay with the actual percent
+
   const dashOffset = dashArray - (dashArray * props.percentage) / 100;
 
   return (

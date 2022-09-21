@@ -6,16 +6,11 @@ const CalculateTime = ({ percent, remaining, checkFirstRender }) => {
   // const afterSomeTime = new Date(timeAfterGivenTime).getTime();
   // const remaining = afterSomeTime - new Date().getTime();
   // const percent = (remaining / remaining) * 100;
-  const [check, setCheck] = useState(checkFirstRender);
-  console.log(check);
-  // let check = checkFirstRender;
+  const [check, setCheck] = useState(false);
   const [countDown, setCountDown] = useState(remaining);
-  const [timeUp, setTimeUp] = useState(false);
-  const [percentage, setPercentage] = useState(percent);
-  // console.log("timeUp", timeUp);
+  const [percentage, setPercentage] = useState(100);
   useEffect(() => {
     setCountDown(() => remaining);
-    setTimeUp(() => false);
   }, [remaining]);
 
   const seconds = Math.floor((countDown / 1000) % 60);
@@ -27,7 +22,6 @@ const CalculateTime = ({ percent, remaining, checkFirstRender }) => {
     seconds: seconds,
   };
   const [time, setTime] = useState(initialTime);
-  console.log(percent, remaining);
 
   const handleCheck = () => {
     if (remaining > 0) {
@@ -37,7 +31,7 @@ const CalculateTime = ({ percent, remaining, checkFirstRender }) => {
 
   useEffect(() => {
     if (countDown >= 0) {
-      setPercentage(Math.floor((countDown / remaining) * 100));
+      setPercentage(Math.floor((countDown / (remaining + 1)) * 100));
       const interval = setInterval(() => {
         setCountDown(countDown - 1000);
       }, 1000);
@@ -57,7 +51,7 @@ const CalculateTime = ({ percent, remaining, checkFirstRender }) => {
         clearInterval(interval);
       };
     } else {
-      setTimeUp(true);
+      setPercentage(0);
     }
   }, [countDown]);
 
