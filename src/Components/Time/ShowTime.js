@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import CalculateTime from "./CalculateTime";
 import "./ShowTime.css";
 const ShowTime = (props) => {
+  const [firstRender, setFirstRender] = useState(false);
   const hoursInMs = props.givenTime.hours * 3600000;
   const minitueInMs = props.givenTime.minitue * 60000;
   const secondsInMs = props.givenTime.seconds * 1000;
@@ -13,12 +14,16 @@ const ShowTime = (props) => {
   const [remaining, setRemaining] = useState(givenTimeInMs);
   useEffect(() => {
     setRemaining(afterSomeTime - new Date().getTime());
-  }, ["givenTimeInMs"]);
+  }, [givenTimeInMs]);
   const percent = (remaining / remaining) * 100;
   console.log(remaining);
   return (
     <div>
-      <CalculateTime remaining={remaining} percent={percent}></CalculateTime>
+      <CalculateTime
+        checkFirstRender={firstRender}
+        remaining={remaining}
+        percent={percent}
+      ></CalculateTime>
     </div>
   );
 };

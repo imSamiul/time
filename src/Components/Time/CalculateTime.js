@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import CircularProgressBar from "../UI/CircularProgressBar";
 
-const CalculateTime = ({ percent, remaining }) => {
+const CalculateTime = ({ percent, remaining, checkFirstRender }) => {
   // const timeAfterGivenTime = props.timeAfterGivenTime;
   // const afterSomeTime = new Date(timeAfterGivenTime).getTime();
   // const remaining = afterSomeTime - new Date().getTime();
   // const percent = (remaining / remaining) * 100;
+  const [check, setCheck] = useState(checkFirstRender);
+  console.log(check);
+  // let check = checkFirstRender;
   const [countDown, setCountDown] = useState(remaining);
   const [timeUp, setTimeUp] = useState(false);
   const [percentage, setPercentage] = useState(percent);
@@ -24,6 +27,13 @@ const CalculateTime = ({ percent, remaining }) => {
     seconds: seconds,
   };
   const [time, setTime] = useState(initialTime);
+  console.log(percent, remaining);
+
+  const handleCheck = () => {
+    if (remaining > 0) {
+      setCheck(true);
+    }
+  };
 
   useEffect(() => {
     if (countDown >= 0) {
@@ -41,8 +51,11 @@ const CalculateTime = ({ percent, remaining }) => {
         ...prevTime,
         ...remainingTime,
       }));
+      handleCheck();
 
-      return () => clearInterval(interval);
+      return () => {
+        clearInterval(interval);
+      };
     } else {
       setTimeUp(true);
     }
@@ -50,7 +63,7 @@ const CalculateTime = ({ percent, remaining }) => {
 
   return (
     <div>
-      {timeUp && countDown <= 0 ? (
+      {check && countDown <= 0 ? (
         <div>Time Up</div>
       ) : (
         <CircularProgressBar
